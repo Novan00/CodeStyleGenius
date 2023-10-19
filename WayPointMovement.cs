@@ -26,13 +26,12 @@ public class WayPointMovement : MonoBehaviour
 
         transform.position = Vector3.MoveTowards(transform.position, target.position, _speed * Time.deltaTime);
 
-
         if (transform.position == target.position)
         {
             MoveToPoint();
         }
-
     }
+    
     public void MoveToPoint()
     {
         _currentPoint++;
@@ -42,6 +41,4 @@ public class WayPointMovement : MonoBehaviour
             _currentPoint = 0;
         }
     }
-
-
 }
