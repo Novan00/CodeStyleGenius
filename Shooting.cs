@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -10,6 +9,13 @@ public class Shooting : MonoBehaviour
     [SerializeField] private float _delay;
     [SerializeField] private Bullet _bullet;
     [SerializeField] private Transform _target;
+
+    private Rigidbody _rigidbody;
+
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+    }
 
     void Start()
     {
@@ -24,13 +30,12 @@ public class Shooting : MonoBehaviour
         {
             Vector3 bulletDirection = (_target.position - transform.position).normalized;
 
-            var NewBullet = Instantiate(_bullet, transform.position + bulletDirection, Quaternion.identity);
+            var newBullet = Instantiate(_bullet, transform.position + bulletDirection, Quaternion.identity);
 
-            NewBullet.GetComponent<Rigidbody>().transform.up = bulletDirection;
-            NewBullet.GetComponent<Rigidbody>().velocity = bulletDirection * _speed;
+            newBullet.transform.up = bulletDirection;
+            _rigidbody.velocity = bulletDirection * _speed;
 
-            yield return new WaitForSeconds(_delay);
-
+            yield return shootDelay;
         }
     }
 }
